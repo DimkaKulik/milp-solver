@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "algo.h"
+#include "direct_method.h"
 #include "utility.h"
 
 
@@ -17,26 +17,31 @@ int main(int argc, char** argv) {
     std::vector<std::vector<int64_t>> graph;
     ReadGraph(edges_filename, nodes_filename, &edges, &nodes, &graph);
     
-    std::set<int64_t> basis_edges;
-    basis_edges.insert(0);
-    basis_edges.insert(1);
-    basis_edges.insert(2);
-    basis_edges.insert(3);
-    basis_edges.insert(4);
-    std::vector<int64_t> flow(8);
-    flow[0] = 20;
-    flow[1] = 40;
-    flow[2] = 0;
-    flow[3] = 5;
-    flow[4] = 25;
-    flow[5] = 55;
-    flow[6] = 50;
-    flow[7] = 40;
-
-
-    Method(edges, nodes, graph, flow, basis_edges); 
-    
-    for (auto elem : flow) {
-        std::cerr << elem << " " << std::endl;
+    auto flow = std::move(Solve(edges, nodes, graph));
+    for (int64_t i = 0; i < int64_t{edges.size()}; ++i) {
+        std::cerr << "edge: " << edges[i].from << " " << edges[i].to << " " << flow[i] << std::endl;
     }
+
+    // std::set<int64_t> basis_edges;
+    // basis_edges.insert(0);
+    // basis_edges.insert(1);
+    // basis_edges.insert(2);
+    // basis_edges.insert(3);
+    // basis_edges.insert(4);
+    // std::vector<int64_t> flow(8);
+    // flow[0] = 20;
+    // flow[1] = 40;
+    // flow[2] = 0;
+    // flow[3] = 5;
+    // flow[4] = 25;
+    // flow[5] = 55;
+    // flow[6] = 50;
+    // flow[7] = 40;
+
+
+    // Method(edges, nodes, graph, flow, basis_edges); 
+    
+    // for (auto elem : flow) {
+    //     std::cerr << elem << " " << std::endl;
+    // }
 }

@@ -6,12 +6,11 @@ set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Wextra -Wconversion -O3 -march=native")
 
-
 #set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
 #set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=thread")
 #set (CMAKE_CXX_FLAGS -pthread)
 
 add_executable(MILP 
                main.cpp 
-               algo.cpp algo.h
+               direct_method.cpp direct_method.h
                utility.cpp utility.h)
