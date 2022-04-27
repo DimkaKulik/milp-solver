@@ -13,4 +13,5 @@ set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Wextra -Wconversion -O3 -march=native")
 add_executable(MILP 
                main.cpp 
                direct_method.cpp direct_method.h
+               dual_method.cpp dual_method.h
                utility.cpp utility.h)

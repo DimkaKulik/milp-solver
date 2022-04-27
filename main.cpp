@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
-#include "direct_method.h"
 #include "utility.h"
+#include "direct_method.h"
+#include "dual_method.h"
 
 
 int main(int argc, char** argv) {
@@ -17,10 +18,13 @@ int main(int argc, char** argv) {
     std::vector<std::vector<int64_t>> graph;
     ReadGraph(edges_filename, nodes_filename, &edges, &nodes, &graph);
     
-    auto flow = std::move(Solve(edges, nodes, graph));
-    for (int64_t i = 0; i < int64_t{edges.size()}; ++i) {
-        std::cerr << "edge: " << edges[i].from << " " << edges[i].to << " " << flow[i] << std::endl;
-    }
+    auto [flow, basis_edges] = std::move(GetInitialFlow(edges, nodes, graph));
+    DualMethod(edges, nodes, graph, flow, basis_edges);
+
+    // auto flow = std::move(Solve(edges, nodes, graph));
+    // for (int64_t i = 0; i < int64_t{edges.size()}; ++i) {
+    //     std::cerr << "edge: " << edges[i].from << " " << edges[i].to << " " << flow[i] << std::endl;
+    // }
 
     // std::set<int64_t> basis_edges;
     // basis_edges.insert(0);

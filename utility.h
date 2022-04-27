@@ -12,6 +12,8 @@ struct Edge {
     int64_t to;
     int64_t cost;
     int64_t limit;
+    
+    int64_t low_limit = 0;
 };
 
 
