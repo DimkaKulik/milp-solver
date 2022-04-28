@@ -52,7 +52,7 @@ int64_t GetNotOptimalEdgeIndex(const std::vector<Edge>& edges,
     int64_t ei_0 = kNoneValue;
     int64_t eval_0 = kNoneValue;
     for (int64_t edge_index = 0; edge_index < int64_t{edges.size()}; ++edge_index) {
-        std::cerr << edge_index << std::endl;
+        // std::cerr << edge_index << std::endl;
         if (basis_edges.contains(edge_index)) { continue; }
 
         int64_t u = edges[edge_index].from;
@@ -60,14 +60,14 @@ int64_t GetNotOptimalEdgeIndex(const std::vector<Edge>& edges,
         int64_t cost = edges[edge_index].cost;
         int64_t eval = (potentials[v] - potentials[u]) - cost;
 
-        std::cerr << "edge : " << edge_index << " (" << u << " -> " << v << ") "  << " eval = " << potentials[v] << " - " << potentials[u] << " - " << cost << " = " << eval << std::endl;
+        // std::cerr << "edge : " << edge_index << " (" << u << " -> " << v << ") "  << " eval = " << potentials[v] << " - " << potentials[u] << " - " << cost << " = " << eval << std::endl;
 
         if ((eval <= 0 && flow[edge_index] == 0) ||
             (eval >= 0 && flow[edge_index] == edges[edge_index].limit)) {
-            std::cerr << "is optimal" << std::endl;
+            // std::cerr << "is optimal" << std::endl;
             continue;
         } else {
-            std::cerr << "is not optimal" << std::endl;
+            // std::cerr << "is not optimal" << std::endl;
         }
         eval = abs(eval);
         if (ei_0 == kNoneValue || eval_0 < eval) {
@@ -215,7 +215,7 @@ GetInitialFlow(const std::vector<Edge>& edges,
     /* Determining initial solution  */
     for (int64_t aei = edges.size(); aei < int64_t{artificial_edges.size()}; ++aei) {
         if (artificial_flow[aei]) {
-            std::cerr << "Network does not allow the flow." << std::endl;
+            std::cerr << "direct_method.cpp/218/Network does not allow the flow." << std::endl;
             throw "No solution can be find.\n";
         }
     }
