@@ -2,6 +2,10 @@
 #include "utility.h"
 #include "direct_method.h"
 #include "dual_method.h"
+#include "branch_and_bound.h"
+
+
+int64_t kVolume = 13;
 
 
 int main(int argc, char** argv) {
@@ -18,13 +22,35 @@ int main(int argc, char** argv) {
     std::vector<std::vector<int64_t>> graph;
     ReadGraph(edges_filename, nodes_filename, &edges, &nodes, &graph);
     
+
     auto [flow, basis_edges] = std::move(GetInitialFlow(edges, nodes, graph));
 
-    auto dual_method_flow = std::move(DualMethod(edges, nodes, graph, basis_edges));
+    
+
+    // edges[0].low_limit = 39;
+    // edges[7].low_limit = 26;
+
+
+    // auto dual_method_flow = std::move(DualMethod(edges, nodes, graph, basis_edges));
+    // for (int64_t i = 0; i < int64_t{edges.size()}; ++i) {
+    //     std::cerr << "edge: " << edges[i].from << " " << edges[i].to << " " << dual_method_flow[i] << std::endl;
+    // }
+
+    // return 0;
+    
+
+    auto milp_flow = SolveMILP(edges, nodes, graph, kVolume);
     for (int64_t i = 0; i < int64_t{edges.size()}; ++i) {
-        std::cerr << "edge: " << edges[i].from << " " << edges[i].to << " " << dual_method_flow[i] << std::endl;
+        std::cerr << "edge: (" << edges[i].from + 1 << " -> " << edges[i].to + 1 << ") " << flow[i] << std::endl;
+    }
+    std::cerr << std::endl;
+
+    for (int64_t i = 0; i < int64_t{edges.size()}; ++i) {
+        std::cerr << "edge: (" << edges[i].from + 1 << " -> " << edges[i].to + 1 << ") " << milp_flow[i] << std::endl;
     }
 
+    std::cerr << "Linear program value: " << GetTargetFunctionValue(edges, flow, kVolume) << std::endl;
+    std::cerr << "Mixed integer linear program value: " << GetTargetFunctionValue(edges, milp_flow, kVolume) << std::endl;
     // auto flow = std::move(Solve(edges, nodes, graph));
 
 

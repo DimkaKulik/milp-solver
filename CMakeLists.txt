@@ -14,4 +14,5 @@ add_executable(MILP
                main.cpp 
                direct_method.cpp direct_method.h
                dual_method.cpp dual_method.h
+               branch_and_bound.cpp branch_and_bound.h
                utility.cpp utility.h)
